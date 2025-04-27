@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "8YxZ+o1D19M=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.API\\NorthwindOrderManager.API.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\jorge\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.3\\microsoft.aspnetcore.openapi.9.0.3.nupkg.sha512",
+    "C:\\Users\\jorge\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
