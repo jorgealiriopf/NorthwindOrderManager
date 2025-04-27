@@ -3,24 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{12FB6C15-121C-4C0D-83C8-43C1B898A009}|NorthwindOrderManager.Infrastructure\\NorthwindOrderManager.Infrastructure.csproj|c:\\users\\jorge\\onedrive\\documentos\\github\\northwindordermanager\\northwindordermanager.api\\northwindordermanager.infrastructure\\northwindordermanager.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{12FB6C15-121C-4C0D-83C8-43C1B898A009}|NorthwindOrderManager.Infrastructure\\NorthwindOrderManager.Infrastructure.csproj|solutionrelative:northwindordermanager.infrastructure\\northwindordermanager.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{24681BAC-2DE4-4776-A050-7DC8DFB12C09}|NorthwindOrderManager.Domain\\NorthwindOrderManager.Domain.csproj|c:\\users\\jorge\\onedrive\\documentos\\github\\northwindordermanager\\northwindordermanager.api\\northwindordermanager.domain\\entities\\orderdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{24681BAC-2DE4-4776-A050-7DC8DFB12C09}|NorthwindOrderManager.Domain\\NorthwindOrderManager.Domain.csproj|solutionrelative:northwindordermanager.domain\\entities\\orderdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3830EBA4-8EAB-4FAF-BEC8-AFE167A3BE07}|NorthwindOrderManager.Application\\NorthwindOrderManager.Application.csproj|c:\\users\\jorge\\onedrive\\documentos\\github\\northwindordermanager\\northwindordermanager.api\\northwindordermanager.application\\northwindordermanager.application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{3830EBA4-8EAB-4FAF-BEC8-AFE167A3BE07}|NorthwindOrderManager.Application\\NorthwindOrderManager.Application.csproj|solutionrelative:northwindordermanager.application\\northwindordermanager.application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{24681BAC-2DE4-4776-A050-7DC8DFB12C09}|NorthwindOrderManager.Domain\\NorthwindOrderManager.Domain.csproj|c:\\users\\jorge\\onedrive\\documentos\\github\\northwindordermanager\\northwindordermanager.api\\northwindordermanager.domain\\entities\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{24681BAC-2DE4-4776-A050-7DC8DFB12C09}|NorthwindOrderManager.Domain\\NorthwindOrderManager.Domain.csproj|solutionrelative:northwindordermanager.domain\\entities\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{12FB6C15-121C-4C0D-83C8-43C1B898A009}|NorthwindOrderManager.Infrastructure\\NorthwindOrderManager.Infrastructure.csproj|c:\\users\\jorge\\onedrive\\documentos\\github\\northwindordermanager\\northwindordermanager.api\\northwindordermanager.infrastructure\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{12FB6C15-121C-4C0D-83C8-43C1B898A009}|NorthwindOrderManager.Infrastructure\\NorthwindOrderManager.Infrastructure.csproj|solutionrelative:northwindordermanager.infrastructure\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{24681BAC-2DE4-4776-A050-7DC8DFB12C09}|NorthwindOrderManager.Domain\\NorthwindOrderManager.Domain.csproj|c:\\users\\jorge\\onedrive\\documentos\\github\\northwindordermanager\\northwindordermanager.api\\northwindordermanager.domain\\entities\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{24681BAC-2DE4-4776-A050-7DC8DFB12C09}|NorthwindOrderManager.Domain\\NorthwindOrderManager.Domain.csproj|solutionrelative:northwindordermanager.domain\\entities\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{24681BAC-2DE4-4776-A050-7DC8DFB12C09}|NorthwindOrderManager.Domain\\NorthwindOrderManager.Domain.csproj|c:\\users\\jorge\\onedrive\\documentos\\github\\northwindordermanager\\northwindordermanager.api\\northwindordermanager.domain\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{24681BAC-2DE4-4776-A050-7DC8DFB12C09}|NorthwindOrderManager.Domain\\NorthwindOrderManager.Domain.csproj|solutionrelative:northwindordermanager.domain\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{24681BAC-2DE4-4776-A050-7DC8DFB12C09}|NorthwindOrderManager.Domain\\NorthwindOrderManager.Domain.csproj|c:\\users\\jorge\\onedrive\\documentos\\github\\northwindordermanager\\northwindordermanager.api\\northwindordermanager.domain\\entities\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{24681BAC-2DE4-4776-A050-7DC8DFB12C09}|NorthwindOrderManager.Domain\\NorthwindOrderManager.Domain.csproj|solutionrelative:northwindordermanager.domain\\entities\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3830EBA4-8EAB-4FAF-BEC8-AFE167A3BE07}|NorthwindOrderManager.Application\\NorthwindOrderManager.Application.csproj|c:\\users\\jorge\\onedrive\\documentos\\github\\northwindordermanager\\northwindordermanager.api\\northwindordermanager.application\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3830EBA4-8EAB-4FAF-BEC8-AFE167A3BE07}|NorthwindOrderManager.Application\\NorthwindOrderManager.Application.csproj|solutionrelative:northwindordermanager.application\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{24681BAC-2DE4-4776-A050-7DC8DFB12C09}|NorthwindOrderManager.Domain\\NorthwindOrderManager.Domain.csproj|c:\\users\\jorge\\onedrive\\documentos\\github\\northwindordermanager\\northwindordermanager.api\\northwindordermanager.domain\\entities\\shipper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{24681BAC-2DE4-4776-A050-7DC8DFB12C09}|NorthwindOrderManager.Domain\\NorthwindOrderManager.Domain.csproj|solutionrelative:northwindordermanager.domain\\entities\\shipper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{24681BAC-2DE4-4776-A050-7DC8DFB12C09}|NorthwindOrderManager.Domain\\NorthwindOrderManager.Domain.csproj|c:\\users\\jorge\\onedrive\\documentos\\github\\northwindordermanager\\northwindordermanager.api\\northwindordermanager.domain\\northwindordermanager.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{24681BAC-2DE4-4776-A050-7DC8DFB12C09}|NorthwindOrderManager.Domain\\NorthwindOrderManager.Domain.csproj|solutionrelative:northwindordermanager.domain\\northwindordermanager.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FB6C15-121C-4C0D-83C8-43C1B898A009}|NorthwindOrderManager.Infrastructure\\NorthwindOrderManager.Infrastructure.csproj|c:\\users\\jorge\\onedrive\\documentos\\github\\northwindordermanager\\northwindordermanager.api\\northwindordermanager.infrastructure\\data\\northwinddbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FB6C15-121C-4C0D-83C8-43C1B898A009}|NorthwindOrderManager.Infrastructure\\NorthwindOrderManager.Infrastructure.csproj|solutionrelative:northwindordermanager.infrastructure\\data\\northwinddbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,71 +38,97 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "NorthwindOrderManager.Infrastructure",
-              "DocumentMoniker": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.Infrastructure\\NorthwindOrderManager.Infrastructure.csproj",
-              "RelativeDocumentMoniker": "NorthwindOrderManager.Infrastructure\\NorthwindOrderManager.Infrastructure.csproj",
-              "ToolTip": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.Infrastructure\\NorthwindOrderManager.Infrastructure.csproj",
-              "RelativeToolTip": "NorthwindOrderManager.Infrastructure\\NorthwindOrderManager.Infrastructure.csproj",
+              "DocumentIndex": 5,
+              "Title": "NorthwindOrderManager.Domain",
+              "DocumentMoniker": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.Domain\\NorthwindOrderManager.Domain.csproj",
+              "RelativeDocumentMoniker": "NorthwindOrderManager.Domain\\NorthwindOrderManager.Domain.csproj",
+              "ToolTip": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.Domain\\NorthwindOrderManager.Domain.csproj",
+              "RelativeToolTip": "NorthwindOrderManager.Domain\\NorthwindOrderManager.Domain.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-04-27T18:31:24.37Z",
+              "WhenOpened": "2025-04-27T18:56:04.994Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "NorthwindOrderManager.Application",
-              "DocumentMoniker": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.Application\\NorthwindOrderManager.Application.csproj",
-              "RelativeDocumentMoniker": "NorthwindOrderManager.Application\\NorthwindOrderManager.Application.csproj",
-              "ToolTip": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.Application\\NorthwindOrderManager.Application.csproj",
-              "RelativeToolTip": "NorthwindOrderManager.Application\\NorthwindOrderManager.Application.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-04-27T18:31:10.324Z",
+              "Title": "Order.cs",
+              "DocumentMoniker": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.Domain\\Entities\\Order.cs",
+              "RelativeDocumentMoniker": "NorthwindOrderManager.Domain\\Entities\\Order.cs",
+              "ToolTip": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.Domain\\Entities\\Order.cs",
+              "RelativeToolTip": "NorthwindOrderManager.Domain\\Entities\\Order.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-27T18:56:42.606Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Class1.cs",
-              "DocumentMoniker": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.Infrastructure\\Class1.cs",
-              "RelativeDocumentMoniker": "NorthwindOrderManager.Infrastructure\\Class1.cs",
-              "ToolTip": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.Infrastructure\\Class1.cs",
-              "RelativeToolTip": "NorthwindOrderManager.Infrastructure\\Class1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "OrderDetail.cs",
+              "DocumentMoniker": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.Domain\\Entities\\OrderDetail.cs",
+              "RelativeDocumentMoniker": "NorthwindOrderManager.Domain\\Entities\\OrderDetail.cs",
+              "ToolTip": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.Domain\\Entities\\OrderDetail.cs",
+              "RelativeToolTip": "NorthwindOrderManager.Domain\\Entities\\OrderDetail.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T18:30:16.942Z",
+              "WhenOpened": "2025-04-27T18:57:25.892Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Class1.cs",
-              "DocumentMoniker": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.Domain\\Class1.cs",
-              "RelativeDocumentMoniker": "NorthwindOrderManager.Domain\\Class1.cs",
-              "ToolTip": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.Domain\\Class1.cs",
-              "RelativeToolTip": "NorthwindOrderManager.Domain\\Class1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "Customer.cs",
+              "DocumentMoniker": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.Domain\\Entities\\Customer.cs",
+              "RelativeDocumentMoniker": "NorthwindOrderManager.Domain\\Entities\\Customer.cs",
+              "ToolTip": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.Domain\\Entities\\Customer.cs",
+              "RelativeToolTip": "NorthwindOrderManager.Domain\\Entities\\Customer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T18:29:51.718Z",
+              "WhenOpened": "2025-04-27T18:57:39.811Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Employee.cs",
+              "DocumentMoniker": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.Domain\\Entities\\Employee.cs",
+              "RelativeDocumentMoniker": "NorthwindOrderManager.Domain\\Entities\\Employee.cs",
+              "ToolTip": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.Domain\\Entities\\Employee.cs",
+              "RelativeToolTip": "NorthwindOrderManager.Domain\\Entities\\Employee.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-27T18:57:51.776Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Class1.cs",
-              "DocumentMoniker": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.Application\\Class1.cs",
-              "RelativeDocumentMoniker": "NorthwindOrderManager.Application\\Class1.cs",
-              "ToolTip": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.Application\\Class1.cs",
-              "RelativeToolTip": "NorthwindOrderManager.Application\\Class1.cs",
+              "Title": "Shipper.cs",
+              "DocumentMoniker": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.Domain\\Entities\\Shipper.cs",
+              "RelativeDocumentMoniker": "NorthwindOrderManager.Domain\\Entities\\Shipper.cs",
+              "ToolTip": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.Domain\\Entities\\Shipper.cs",
+              "RelativeToolTip": "NorthwindOrderManager.Domain\\Entities\\Shipper.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-27T18:58:04.879Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "NorthwindDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.Infrastructure\\Data\\NorthwindDbContext.cs",
+              "RelativeDocumentMoniker": "NorthwindOrderManager.Infrastructure\\Data\\NorthwindDbContext.cs",
+              "ToolTip": "C:\\Users\\jorge\\OneDrive\\Documentos\\GitHub\\NorthwindOrderManager\\NorthwindOrderManager.API\\NorthwindOrderManager.Infrastructure\\Data\\NorthwindDbContext.cs",
+              "RelativeToolTip": "NorthwindOrderManager.Infrastructure\\Data\\NorthwindDbContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T18:29:17.126Z",
+              "WhenOpened": "2025-04-27T19:01:39.155Z",
               "EditorCaption": ""
             }
           ]

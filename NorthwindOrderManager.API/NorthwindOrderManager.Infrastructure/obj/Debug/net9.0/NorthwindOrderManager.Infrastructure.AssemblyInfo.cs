@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NorthwindOrderManager.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+404f06830b06b195ea52a6455482d85f8c988a58")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8be10b7f786fab0cef2f91e64b42701782b49258")]
 [assembly: System.Reflection.AssemblyProductAttribute("NorthwindOrderManager.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NorthwindOrderManager.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
