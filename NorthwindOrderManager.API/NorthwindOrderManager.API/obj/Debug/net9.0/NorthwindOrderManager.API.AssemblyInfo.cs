@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NorthwindOrderManager.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1674f4db3aa2e7f3ddc4ab98396ad69feacefbf1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2893b15f0240d37f2fe690d6541c4f24cd1ec1d2")]
 [assembly: System.Reflection.AssemblyProductAttribute("NorthwindOrderManager.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NorthwindOrderManager.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
