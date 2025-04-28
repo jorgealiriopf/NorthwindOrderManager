@@ -6,27 +6,27 @@ namespace NorthwindOrderManager.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ShippersController : ControllerBase
+    public class CustomersController : ControllerBase
     {
         private readonly NorthwindDbContext _context;
 
-        public ShippersController(NorthwindDbContext context)
+        public CustomersController(NorthwindDbContext context)
         {
             _context = context;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetShippers()
+        public async Task<IActionResult> GetCustomers()
         {
-            var shippers = await _context.Shippers
-                .Select(s => new 
+            var customers = await _context.Customers
+                .Select(c => new
                 {
-                    shipperId = s.ShipperId,
-                    companyName = s.CompanyName
+                    c.CustomerId,
+                    c.CompanyName
                 })
                 .ToListAsync();
 
-            return Ok(shippers);
+            return Ok(customers);
         }
     }
 }
