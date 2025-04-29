@@ -1,21 +1,43 @@
-import axios from 'axios';
+import axios from "axios";
 
-const BASE_URL = 'http://localhost:5027/api/orders';
+export const createOrder = async (order) => {
+    return axios.post("http://localhost:5027/api/orders", {
+        customerId: order.customerId || null,
+        employeeId: order.employeeId || null,
+        shipAddress: order.shipAddress || null,
+        shipVia: order.shipVia ? Number(order.shipVia) : null,
+        orderDate: order.orderDate || null,
+        orderDetails: order.orderDetails || []
+    });
+};
 
-export const getOrders = () =>
-  axios.get(BASE_URL).then(response => response.data);
+export const updateOrder = async (order) => {
+    return axios.put(`http://localhost:5027/api/orders/${order.orderId}`, {
+      orderId: order.orderId, // 🔵 MUY IMPORTANTE
+      customerId: order.customerId || null,
+      employeeId: order.employeeId || null,
+      shipAddress: order.shipAddress || null,
+      shipVia: order.shipVia ? Number(order.shipVia) : null,
+      orderDate: order.orderDate || null,
+      orderDetails: order.orderDetails || [] // Aunque no lo actualices, mejor mantener estructura
+    });
+  };  
+  
+export const deleteOrder = async (orderId) => {
+    return axios.delete(`http://localhost:5027/api/orders/${orderId}`);
+};
 
-export const createOrder = (order) =>
-  axios.post(BASE_URL, order);
+export const getOrders = async () => {
+    return axios.get("http://localhost:5027/api/orders");
+};
 
-export const updateOrder = (orderId, order) =>
-  axios.put(`${BASE_URL}/${orderId}`, order);
+export const exportOrdersPdf = async () => {
+    return axios.get("http://localhost:5027/api/orders/export/pdf", {
+        responseType: 'blob'
+    });
+};
 
-export const deleteOrder = (orderId) =>
-  axios.delete(`${BASE_URL}/${orderId}`);
+export const getOrderDetails = async (orderId) => {
+    return axios.get(`http://localhost:5027/api/orders/${orderId}/details`);
+};
 
-export const exportOrdersPdf = () =>
-  axios.get(`${BASE_URL}/export`, { responseType: 'blob' });
-
-export const getOrderDetails = (orderId) => 
-  axios.get(`${BASE_URL}/${orderId}/details`).then(response => response.data);
