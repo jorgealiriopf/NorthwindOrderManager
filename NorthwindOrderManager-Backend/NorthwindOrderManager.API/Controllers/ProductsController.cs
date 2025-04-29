@@ -20,8 +20,15 @@ namespace NorthwindOrderManager.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
-            var products = await _context.Products.ToListAsync();
+            var products = await _context.Products
+                .Select(p => new {
+                    p.ProductId,
+                    p.ProductName,
+                    p.UnitPrice
+                })
+                .ToListAsync();
             return Ok(products);
         }
+
     }
 }
