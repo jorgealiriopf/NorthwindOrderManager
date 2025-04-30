@@ -5,7 +5,11 @@ import { getEmployees } from '../api/employeesApi';
 import { getCustomers } from '../api/customersApi';
 import { getOrders, createOrder, updateOrder, deleteOrder, exportOrdersPdf, getOrderDetails } from '../api/ordersApi';
 import { getShippers } from '../api/shippersApi';
-import { getProducts } from '../api/productsApi'; // IMPORTANTE
+import { getProducts } from '../api/productsApi';
+import { getOrderLinesByOrderId } from "../api/orderDetailsApi";
+import { addOrderLine } from "../api/orderDetailsApi";
+
+ // IMPORTANTE
 // 🔵 Agrega la función getProducts() en tu API si no la tienes.
 
 export function useOrderForm() {
@@ -87,19 +91,19 @@ export function useOrderForm() {
   
   const searchOrder = async (orderId) => {
     try {
-      const foundOrder = orders.find((order) => order.orderId.toString() === orderId);
+      const foundOrder = orders.find(order => order.orderId.toString() === orderId);
       if (foundOrder) {
         setFormData({
           orderId: foundOrder.orderId,
           customerId: foundOrder.customerId,
           employeeId: foundOrder.employeeId || "",
           shipAddress: foundOrder.shipAddress || "",
-          shipVia: foundOrder.shipperId || "",
-          orderDate: foundOrder.orderDate ? foundOrder.orderDate.substring(0, 10) : "",
+          shipVia: foundOrder.shipper?.shipperId || "",
+          orderDate: foundOrder.orderDate?.substring(0, 10) || ""
         });
-        console.log("Found order details:", foundOrder.orderDetails);
-
-        setLines(foundOrder.orderDetails || []); // ✅ aquí el cambio
+  
+        const details = await getOrderLinesByOrderId(orderId);
+        setLines(details); // <<< importante
         return true;
       }
       return false;
@@ -108,6 +112,7 @@ export function useOrderForm() {
       return false;
     }
   };
+  
   
 
  /* const searchOrder = async (orderId) => {
@@ -148,17 +153,41 @@ export function useOrderForm() {
     setSelectedLineIndex(index);
   };
 
-  const handleLineSave = () => {
-    if (lineMode === 'adding') {
-      setLines([...lines, currentLine]);
-    } else if (lineMode === 'editing') {
-      const updatedLines = [...lines];
-      updatedLines[selectedLineIndex] = currentLine;
-      setLines(updatedLines);
+  const handleLineSave = async () => {
+  if (lineMode === "adding") {
+    try {
+      if (!formData.orderId) {
+        alert("You must save the order before adding products.");
+        return;
+      }
+
+      const detail = {
+        orderId: formData.orderId,
+        productId: currentLine.productId,
+        unitPrice: currentLine.unitPrice,
+        quantity: currentLine.quantity,
+        discount: 0
+      };
+
+      // POST hacia el backend
+      await addOrderLine(formData.orderId, detail);
+
+      // Actualiza el estado visual (línea local)
+      const newLine = {
+        ...currentLine,
+        total: currentLine.unitPrice * currentLine.quantity
+      };
+
+      setLines([...lines, newLine]);
+      setCurrentLine(null);
+      setLineMode("view");
+
+    } catch (error) {
+      console.error("Error saving order line:", error);
+      alert("Failed to save product line.");
     }
-    setCurrentLine(null);
-    setLineMode('view');
-  };
+  }
+};
 
   const handleLineCancel = () => {
     setCurrentLine(null);
@@ -192,6 +221,8 @@ export function useOrderForm() {
     handleLineCancel,
     handleLineDelete,
     setCurrentLine,
+    lineMode,
+    setLineMode,
     setLines,
     searchOrder,
     saveOrder,

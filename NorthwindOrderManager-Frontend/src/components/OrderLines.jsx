@@ -28,25 +28,25 @@ const OrderLines = ({
         ...currentLine,
         productId: selectedProduct.productId,
         unitPrice: selectedProduct.unitPrice,
-        total: selectedProduct.unitPrice * currentLine.quantity
+        total: selectedProduct.unitPrice * (currentLine?.quantity ?? 1)
       });
     }
   };
+  
 
-  return (
+ return (
     <div className="mt-4">
-
       {/* Encabezado Lines + Botones */}
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h4>Lines</h4>
-        {lineMode === "view" ? (
-          <div>
-            <button className="btn btn-primary me-2" onClick={handleLineNew}>New</button>
-          </div>
-        ) : (
+        {(lineMode === "adding" || lineMode === "editing") ? (
           <div>
             <button className="btn btn-success me-2" onClick={handleLineSave}>Save</button>
             <button className="btn btn-secondary" onClick={handleLineCancel}>Cancel</button>
+          </div>
+        ) : (
+          <div>
+            <button className="btn btn-primary me-2" onClick={handleLineNew}>New</button>
           </div>
         )}
       </div>

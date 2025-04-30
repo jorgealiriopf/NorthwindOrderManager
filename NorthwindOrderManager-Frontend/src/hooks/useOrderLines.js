@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { getOrderDetails } from '../api/ordersApi';
 
 const useOrderLines = () => {
-  const [lines, setLines] = useState([]);
+  const [lines, setLines] = useState(["view"]);
 
   const loadLines = async (orderId) => {
     try {

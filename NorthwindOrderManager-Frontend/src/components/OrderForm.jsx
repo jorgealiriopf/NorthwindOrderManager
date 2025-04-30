@@ -4,8 +4,7 @@ import OrderLines from "./OrderLines";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import React, { useState } from "react";
-
-
+import { getOrderLinesByOrderId } from "../api/orderDetailsApi";
 
 const OrderForm = () => {
   const {
@@ -83,21 +82,52 @@ const OrderForm = () => {
     setMode('view');
   };
 
-  const onPrevious = () => {
-    const index = orders.findIndex(order => order.orderId === formData.orderId);
-    if (index > 0) {
-      const previousOrder = orders[index - 1];
-      loadOrderIntoForm(previousOrder);
+  const onPrevious = async () => {
+    const currentIndex = orders.findIndex(o => o.orderId === formData.orderId);
+    if (currentIndex > 0) {
+      const prevOrder = orders[currentIndex - 1];
+      setFormData({
+        orderId: prevOrder.orderId,
+        customerId: prevOrder.customerId,
+        employeeId: prevOrder.employeeId || "",
+        shipAddress: prevOrder.shipAddress || "",
+        shipVia: prevOrder.shipper?.shipperId || "",
+        orderDate: prevOrder.orderDate?.substring(0, 10) || ""
+      });
+  
+      try {
+        const details = await getOrderLinesByOrderId(prevOrder.orderId);
+        setLines(details);
+      } catch (err) {
+        console.error("Error loading order details for previous order:", err);
+        setLines([]); // fallback vacío
+      }
     }
   };
-
-  const onNext = () => {
-    const index = orders.findIndex(order => order.orderId === formData.orderId);
-    if (index < orders.length - 1) {
-      const nextOrder = orders[index + 1];
-      loadOrderIntoForm(nextOrder);
+  
+  const onNext = async () => {
+    const currentIndex = orders.findIndex(o => o.orderId === formData.orderId);
+    if (currentIndex < orders.length - 1) {
+      const nextOrder = orders[currentIndex + 1];
+      setFormData({
+        orderId: nextOrder.orderId,
+        customerId: nextOrder.customerId,
+        employeeId: nextOrder.employeeId || "",
+        shipAddress: nextOrder.shipAddress || "",
+        shipVia: nextOrder.shipper?.shipperId || "",
+        orderDate: nextOrder.orderDate?.substring(0, 10) || ""
+      });
+  
+      try {
+        const details = await getOrderLinesByOrderId(nextOrder.orderId);
+        setLines(details);
+      } catch (err) {
+        console.error("Error loading order details for next order:", err);
+        setLines([]);
+      }
     }
   };
+  
 
   const loadOrderIntoForm = (order) => {
     setFormData({
