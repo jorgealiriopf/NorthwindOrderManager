@@ -8,6 +8,9 @@ import { getShippers } from '../api/shippersApi';
 import { getProducts } from '../api/productsApi';
 import { getOrderLinesByOrderId } from "../api/orderDetailsApi";
 import { addOrderLine } from "../api/orderDetailsApi";
+import { updateOrderLine } from "../api/orderDetailsApi";
+import { deleteOrderLine } from "../api/orderDetailsApi";
+
 
  // IMPORTANTE
 // 🔵 Agrega la función getProducts() en tu API si no la tienes.
@@ -39,7 +42,14 @@ export function useOrderForm() {
     loadData();
   }, []);
 
-
+  const refreshOrderAndLines = async (orderId) => {
+    const updated = orders.find(o => o.orderId === orderId);
+    if (updated) {
+      await searchOrder(orderId.toString());
+    }
+  };
+  
+  
   const loadData = async () => {
     try {
       const [employeesRes, customersRes, shippersRes, ordersRes, productsRes] = await Promise.all([
@@ -82,6 +92,7 @@ export function useOrderForm() {
           orderDate: formData.orderDate,
           orderDetails: lines
         });
+        await refreshOrderAndLines(formData.orderId);
       }
     } catch (error) {
       console.error('Error saving order:', error);
@@ -151,55 +162,101 @@ export function useOrderForm() {
     setCurrentLine({ ...lines[index] });
     setLineMode('editing');
     setSelectedLineIndex(index);
+    setLineMode("editing");
   };
 
   const handleLineSave = async () => {
-  if (lineMode === "adding") {
-    try {
-      if (!formData.orderId) {
-        alert("You must save the order before adding products.");
-        return;
+    if (lineMode === "adding") {
+      try {
+        if (!formData.orderId) {
+          alert("You must save the order before adding products.");
+          return;
+        }
+  
+        const detail = {
+          orderId: formData.orderId,
+          productId: currentLine.productId,
+          unitPrice: currentLine.unitPrice,
+          quantity: currentLine.quantity,
+          discount: 0
+        };
+  
+        await addOrderLine(formData.orderId, detail);
+  
+        const newLine = {
+          ...currentLine,
+          total: currentLine.unitPrice * currentLine.quantity
+        };
+  
+        setLines([...lines, newLine]);
+        setCurrentLine(null);
+        setLineMode("view");
+      } catch (error) {
+        console.error("Error saving order line:", error);
+        alert("Failed to save product line.");
       }
-
-      const detail = {
-        orderId: formData.orderId,
-        productId: currentLine.productId,
-        unitPrice: currentLine.unitPrice,
-        quantity: currentLine.quantity,
-        discount: 0
-      };
-
-      // POST hacia el backend
-      await addOrderLine(formData.orderId, detail);
-
-      // Actualiza el estado visual (línea local)
-      const newLine = {
-        ...currentLine,
-        total: currentLine.unitPrice * currentLine.quantity
-      };
-
-      setLines([...lines, newLine]);
-      setCurrentLine(null);
-      setLineMode("view");
-
-    } catch (error) {
-      console.error("Error saving order line:", error);
-      alert("Failed to save product line.");
     }
-  }
-};
+  
+    if (lineMode === "editing" && selectedLineIndex !== null && currentLine) {
+      try {
+        const detail = {
+          orderId: formData.orderId,
+          productId: currentLine.productId,
+          unitPrice: currentLine.unitPrice,
+          quantity: currentLine.quantity,
+          discount: 0
+        };
+  
+        await updateOrderLine(formData.orderId, detail);
+  
+        const updatedLines = [...lines];
+        updatedLines[selectedLineIndex] = {
+          ...currentLine,
+          total: currentLine.unitPrice * currentLine.quantity
+        };
+  
+        setLines(updatedLines);
+        setLineMode("view");
+        setCurrentLine(null);
+        setSelectedLineIndex(null);
+      } catch (error) {
+        console.error("Error updating order line:", error);
+        alert("Failed to update product line.");
+      }
+    }
+  };
+  
 
   const handleLineCancel = () => {
     setCurrentLine(null);
     setLineMode('view');
   };
 
-  const handleLineDelete = (index) => {
-    if (confirm('Are you sure you want to delete this line?')) {
-      const updatedLines = lines.filter((_, idx) => idx !== index);
+  const handleLineDelete = async (index) => {
+    const lineToDelete = lines[index];
+  
+    if (!formData.orderId || !lineToDelete?.productId) {
+      alert("Missing Order ID or Product ID.");
+      return;
+    }
+  
+    const confirmDelete = window.confirm("Are you sure you want to delete this product?");
+    if (!confirmDelete) return;
+  
+    try {
+      await deleteOrderLine(formData.orderId, lineToDelete.productId);
+  
+      const updatedLines = lines.filter((_, i) => i !== index);
       setLines(updatedLines);
+      setCurrentLine(null);
+      setLineMode("view");
+  
+    } catch (error) {
+      console.error("Error deleting order line:", error.response?.data || error.message);
+      alert("Failed to delete product.");
     }
   };
+  
 
   return {
     formData,
