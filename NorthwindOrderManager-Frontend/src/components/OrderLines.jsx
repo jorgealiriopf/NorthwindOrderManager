@@ -32,9 +32,13 @@ const OrderLines = ({
       });
     }
   };
-  
 
- return (
+  const calculateTotalGeneral = () => {
+    return lines.reduce((acc, line) => acc + (line.unitPrice * line.quantity), 0).toFixed(2);
+  };
+
+
+  return (
     <div className="mt-4">
       {/* Encabezado Lines + Botones */}
       <div className="d-flex justify-content-between align-items-center mb-3">
@@ -149,6 +153,10 @@ const OrderLines = ({
             )}
           </tbody>
         </table>
+        <div className="text-end mt-2">
+          <strong>Total General: ${calculateTotalGeneral()}</strong>
+        </div>
+
       </div>
     </div>
   );

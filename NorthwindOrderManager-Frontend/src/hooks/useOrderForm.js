@@ -12,6 +12,7 @@ import { updateOrderLine } from "../api/orderDetailsApi";
 import { deleteOrderLine } from "../api/orderDetailsApi";
 
 
+
  // IMPORTANTE
 // 🔵 Agrega la función getProducts() en tu API si no la tienes.
 
@@ -48,7 +49,6 @@ export function useOrderForm() {
       await searchOrder(orderId.toString());
     }
   };
-  
   
   const loadData = async () => {
     try {

@@ -1,12 +1,13 @@
-//import React from "react";
 import { useOrderForm } from "../hooks/useOrderForm";
 import OrderLines from "./OrderLines";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import React, { useState } from "react";
 import { getOrderLinesByOrderId } from "../api/orderDetailsApi";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
-const OrderForm = () => {
+const OrderForm = ({ onReload }) => {
   const {
     formData,
     setFormData,
@@ -40,8 +41,93 @@ const OrderForm = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleExportPdf = async () => {
+    const form = document.getElementById("order-form-pdf");
+    if (!form) return;
+
+    try {
+      const canvas = await html2canvas(form);
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+
+      const width = pdf.internal.pageSize.getWidth();
+      const height = (canvas.height * width) / canvas.width;
+
+      pdf.addImage(imgData, "PNG", 0, 0, width, height);
+      pdf.save(`Order_${formData.orderId || "New"}.pdf`);
+    } catch (err) {
+      console.error("Error generating PDF:", err);
+      alert("Failed to generate PDF.");
+    }
+  };
+
   const handleDateChange = (date) => {
     setFormData((prev) => ({ ...prev, orderDate: date.toISOString().substring(0, 10) }));
+  };
+
+  const [validatedAddress, setValidatedAddress] = useState({
+    street: '',
+    city: '',
+    state: '',
+    postalCode: '',
+    country: '',
+    coordinates: ''
+  });
+
+  const validateAddress = async () => {
+    const apiKey = 'AIzaSyAU3dVVfFmZGs2jzak4DoEW-Pw4IOtepUI'; // ⬅️ Reemplaza con tu API Key válida
+    const address = formData.shipAddress;
+
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`
+      );
+      const data = await response.json();
+
+      console.log("Geocode API response:", data);
+
+      if (data.status === 'OK') {
+        const result = data.results[0];
+        const components = result.address_components;
+
+        const getComponent = (types) =>
+          components.find(c => types.every(t => c.types.includes(t)))?.long_name || '';
+
+        const lat = result.geometry.location.lat;
+        const lng = result.geometry.location.lng;
+
+        setValidatedAddress({
+          street: getComponent(['route']),
+          city: getComponent(['locality']) || getComponent(['administrative_area_level_2']),
+          state: getComponent(['administrative_area_level_1']),
+          postalCode: getComponent(['postal_code']),
+          country: getComponent(['country']),
+          coordinates: `${lat}, ${lng}`
+        });
+
+        // ✅ Mostrar el mapa con AdvancedMarkerElement
+        const map = new window.google.maps.Map(document.getElementById("map"), {
+          center: { lat, lng },
+          zoom: 15,
+          mapId: "c0e64da06a98d4ae"
+        });
+
+        const { AdvancedMarkerElement } = window.google.maps.marker;
+
+        new AdvancedMarkerElement({
+          map,
+          position: { lat, lng },
+          title: "Validated Address"
+        });
+
+      } else {
+        alert("Could not validate the address.");
+      }
+
+    } catch (err) {
+      console.error("Error validating address:", err);
+      alert("Error validating address.");
+    }
   };
 
   const onNew = () => {
@@ -83,51 +169,56 @@ const OrderForm = () => {
   };
 
   const onPrevious = async () => {
+    if (!orders.length) return;
+
     const currentIndex = orders.findIndex(o => o.orderId === formData.orderId);
-    if (currentIndex > 0) {
-      const prevOrder = orders[currentIndex - 1];
-      setFormData({
-        orderId: prevOrder.orderId,
-        customerId: prevOrder.customerId,
-        employeeId: prevOrder.employeeId || "",
-        shipAddress: prevOrder.shipAddress || "",
-        shipVia: prevOrder.shipper?.shipperId || "",
-        orderDate: prevOrder.orderDate?.substring(0, 10) || ""
-      });
-  
-      try {
-        const details = await getOrderLinesByOrderId(prevOrder.orderId);
-        setLines(details);
-      } catch (err) {
-        console.error("Error loading order details for previous order:", err);
-        setLines([]); // fallback vacío
-      }
+    const prevIndex = currentIndex <= 0 ? orders.length - 1 : currentIndex - 1;
+    const prevOrder = orders[prevIndex];
+
+    setFormData({
+      orderId: prevOrder.orderId,
+      customerId: prevOrder.customerId,
+      employeeId: prevOrder.employeeId || "",
+      shipAddress: prevOrder.shipAddress || "",
+      shipVia: prevOrder.shipper?.shipperId || "",
+      orderDate: prevOrder.orderDate?.substring(0, 10) || ""
+    });
+
+    try {
+      const details = await getOrderLinesByOrderId(prevOrder.orderId);
+      setLines(details);
+    } catch (err) {
+      console.error("Error loading order details for previous order:", err);
+      setLines([]);
     }
   };
-  
+
   const onNext = async () => {
+    if (!orders.length) return;
+
     const currentIndex = orders.findIndex(o => o.orderId === formData.orderId);
-    if (currentIndex < orders.length - 1) {
-      const nextOrder = orders[currentIndex + 1];
-      setFormData({
-        orderId: nextOrder.orderId,
-        customerId: nextOrder.customerId,
-        employeeId: nextOrder.employeeId || "",
-        shipAddress: nextOrder.shipAddress || "",
-        shipVia: nextOrder.shipper?.shipperId || "",
-        orderDate: nextOrder.orderDate?.substring(0, 10) || ""
-      });
-  
-      try {
-        const details = await getOrderLinesByOrderId(nextOrder.orderId);
-        setLines(details);
-      } catch (err) {
-        console.error("Error loading order details for next order:", err);
-        setLines([]);
-      }
+    const nextIndex = currentIndex === -1 || currentIndex >= orders.length - 1 ? 0 : currentIndex + 1;
+    const nextOrder = orders[nextIndex];
+
+    setFormData({
+      orderId: nextOrder.orderId,
+      customerId: nextOrder.customerId,
+      employeeId: nextOrder.employeeId || "",
+      shipAddress: nextOrder.shipAddress || "",
+      shipVia: nextOrder.shipper?.shipperId || "",
+      orderDate: nextOrder.orderDate?.substring(0, 10) || ""
+    });
+
+    try {
+      const details = await getOrderLinesByOrderId(nextOrder.orderId);
+      setLines(details);
+    } catch (err) {
+      console.error("Error loading order details for next order:", err);
+      setLines([]);
     }
   };
-  
+
+
 
   const loadOrderIntoForm = (order) => {
     setFormData({
@@ -147,6 +238,7 @@ const OrderForm = () => {
     try {
       await saveOrder(); // 👈 Aquí ya no dará error
       setMode('view');
+      onReload();
     } catch (error) {
       console.error("Error saving order:", error);
     }
@@ -176,6 +268,7 @@ const OrderForm = () => {
         });
         setLines([]);
         setMode('view');
+        onReload();
       } catch (error) {
         console.error("Error deleting order:", error);
       }
@@ -186,29 +279,11 @@ const OrderForm = () => {
   //console.log("FormData at render:", formData);
 
   return (
-    <div className="container mt-4">
 
-      {/* Botones principales 
+    <div id="order-form-pdf" className="container mt-4">
+      
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <div>
-          <button className="btn btn-primary me-2" onClick={handleNew}>New</button>
-          <button className="btn btn-success me-2" onClick={handleSave}>Save</button>
-          <button className="btn btn-warning me-2" onClick={handleEdit}>Update</button>
-          <button className="btn btn-danger me-2" onClick={handleDelete}>Delete</button>
-          <button className="btn btn-secondary me-2" onClick={handleCancel}>Cancel</button>
-          <button className="btn btn-info me-2">Generate</button>
-          <button className="btn btn-light me-2">{'<'}</button>
-          <button className="btn btn-light me-2">{'>'}</button>
-          <button className="btn btn-dark" onClick={handleSearch}>🔍</button>
-        </div>
-        <div>
-          <strong>ORDER ID: {formData.orderId || '-'}</strong>
-        </div>
-      </div>
-      */}
-
-      <div className="d-flex justify-content-between align-items-center mb-3">
-
+      <title>RSM Final project</title>
         {/* Botones de Acciones */}
         <div>
           {mode === 'view' && (
@@ -235,7 +310,7 @@ const OrderForm = () => {
         <div>
           {mode === 'view' && (
             <>
-              <button className="btn btn-success">Generate</button>
+              <button className="btn btn-success" onClick={handleExportPdf}>Generate</button>
               &nbsp;
               &nbsp;
               <button className="btn btn-outline-dark" onClick={onPrevious}>{'<'}</button>
@@ -252,7 +327,7 @@ const OrderForm = () => {
       &nbsp;
       {/* Order ID visual */}
       <div className="d-flex justify-content-left my-3">
-      
+
         <h3>Order ID: {formData.orderId || '-'}</h3>
       </div>
       &nbsp;
@@ -287,7 +362,7 @@ const OrderForm = () => {
               onChange={handleInputChange}
               disabled={!isFormEnabled}
             />
-            <button className="btn btn-outline-primary" type="button">Validate</button>
+            <button className="btn btn-outline-primary" type="button" onClick={validateAddress}>Validate</button>
           </div>
         </div>
 
@@ -338,6 +413,45 @@ const OrderForm = () => {
           setCurrentLine={setCurrentLine}
         />
       </div>
+
+      {/* Sección de Validated address*/}
+      <div className="mt-4">
+        <h4>Validated Address</h4>
+        <div className="row mb-2">
+          <div className="col-md-4">
+            <label className="form-label">Street</label>
+            <input type="text" className="form-control" value={validatedAddress.street} readOnly />
+          </div>
+          <div className="col-md-4">
+            <label className="form-label">City</label>
+            <input type="text" className="form-control" value={validatedAddress.city} readOnly />
+          </div>
+          <div className="col-md-4">
+            <label className="form-label">State</label>
+            <input type="text" className="form-control" value={validatedAddress.state} readOnly />
+          </div>
+        </div>
+
+        <div className="row mb-2">
+          <div className="col-md-4">
+            <label className="form-label">Postal Code</label>
+            <input type="text" className="form-control" value={validatedAddress.postalCode} readOnly />
+          </div>
+          <div className="col-md-4">
+            <label className="form-label">Country</label>
+            <input type="text" className="form-control" value={validatedAddress.country} readOnly />
+          </div>
+          <div className="col-md-4">
+            <label className="form-label">Coordinates</label>
+            <input type="text" className="form-control" value={validatedAddress.coordinates} readOnly />
+          </div>
+        </div>
+
+        <div className="mb-3" style={{ height: '300px' }}>
+          <div id="map" style={{ height: "300px", width: "100%", marginTop: "20px" }}></div>
+        </div>
+      </div>
+
 
     </div>
   );
