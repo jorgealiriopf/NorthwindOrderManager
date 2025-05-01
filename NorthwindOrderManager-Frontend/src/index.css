@@ -72,3 +72,10 @@ button:focus-visible {
 .react-datepicker__input-container input {
   width: 100%;
 }
+
+
+
+body {
+  display: flex;
+  flex-direction: column;
+}

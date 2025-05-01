@@ -280,7 +280,7 @@ const OrderForm = ({ onReload }) => {
 
   return (
 
-    <div id="order-form-pdf" className="container mt-4">
+    <div className="container mt-4">
       
       <div className="d-flex justify-content-between align-items-center mb-3">
       <title>RSM Final project</title>
@@ -324,7 +324,7 @@ const OrderForm = ({ onReload }) => {
         </div>
 
       </div>
-      &nbsp;
+
       {/* Order ID visual */}
       <div className="d-flex justify-content-left my-3">
 

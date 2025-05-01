@@ -36,8 +36,7 @@ const OrderLines = ({
   const calculateTotalGeneral = () => {
     return lines.reduce((acc, line) => acc + (line.unitPrice * line.quantity), 0).toFixed(2);
   };
-
-
+  
   return (
     <div className="mt-4">
       {/* Encabezado Lines + Botones */}

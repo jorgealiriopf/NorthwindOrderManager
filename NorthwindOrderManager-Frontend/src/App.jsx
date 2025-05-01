@@ -10,7 +10,9 @@ function App() {
   };
 
   return (
-    <div className="container-fluid mt-5 px-3">
+    <div id="order-form-pdf" className="container-fluid mt-5 px-3">
+      &nbsp;
+      &nbsp;
       <h1 className="text-center mb-2">RSM FINAL PROJECT</h1>
       <OrderForm onReload={handleReloadOrders} />
       <hr />
