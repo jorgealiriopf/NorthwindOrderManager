@@ -1,24 +1,23 @@
 import React from 'react';
 import OrderForm from './components/OrderForm';
-//import OrdersTable from './components/OrdersTable'; // Si la tienes
+import logo from './assets/rsm_logo.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
-function App() {
-
+export default function App() {
   const handleReloadOrders = () => {
     window.location.reload(); // Refresca toda la app
   };
 
   return (
-    <div id="order-form-pdf" className="container-fluid mt-5 px-3">
-      &nbsp;
-      &nbsp;
-      <h1 className="text-center mb-2">RSM FINAL PROJECT</h1>
-      <OrderForm onReload={handleReloadOrders} />
-      <hr />
+    <div >
+      <header>
+      </header>
+      <main >
+        <h1 ></h1>
+        <OrderForm onReload={handleReloadOrders} />
+        <hr />
+      </main>
     </div>
   );
 }
-
-export default App;
-

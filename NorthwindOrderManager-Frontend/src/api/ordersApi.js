@@ -41,3 +41,25 @@ export const getOrderDetails = async (orderId) => {
     return axios.get(`http://localhost:5027/api/orders/${orderId}/details`);
 };
 
+// ordersApi.js
+
+/**
+ * Descarga el PDF de la orden indicada desde el servidor
+ * @param {number|string} orderId
+ * @returns {Promise<Blob>}
+ */
+export async function fetchOrderPdf(orderId) {
+    const url = `${import.meta.env.VITE_API_BASE_URL}/orders/${orderId}/pdf`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/pdf',
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Error al generar PDF: ${response.statusText}`);
+    }
+    return await response.blob();
+  }
+  
+

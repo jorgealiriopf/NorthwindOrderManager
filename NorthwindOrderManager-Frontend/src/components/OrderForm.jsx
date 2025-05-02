@@ -6,6 +6,9 @@ import React, { useState } from "react";
 import { getOrderLinesByOrderId } from "../api/orderDetailsApi";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import { fetchOrderPdf } from '../api/ordersApi';
+import logo from '../assets/rsm_logo.png';
+
 
 const OrderForm = ({ onReload }) => {
   const {
@@ -61,6 +64,27 @@ const OrderForm = ({ onReload }) => {
     }
   };
 
+  const handleDownloadServerPdf = async () => {
+    try {
+      const blob = await fetchOrderPdf(formData.orderId);
+      // Crea una URL temporal para el blob
+      const url = URL.createObjectURL(blob);
+      // Crea un enlace invisible y dispara la descarga
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `order_${formData.orderId}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      // Libera la URL
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error(err);
+      alert('No se pudo descargar el PDF desde el servidor.');
+    }
+  };
+
+
   const handleDateChange = (date) => {
     setFormData((prev) => ({ ...prev, orderDate: date.toISOString().substring(0, 10) }));
   };
@@ -75,58 +99,55 @@ const OrderForm = ({ onReload }) => {
   });
 
   const validateAddress = async () => {
-    const apiKey = 'AIzaSyAU3dVVfFmZGs2jzak4DoEW-Pw4IOtepUI'; // ⬅️ Reemplaza con tu API Key válida
+    // 1) Toma la dirección directamente de tu estado formData
     const address = formData.shipAddress;
+    if (!address) {
+      alert("Por favor ingresa una dirección primero.");
+      return;
+    }
 
     try {
-      const response = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`
+      // 2) Llama al endpoint que creaste en tu API
+      const res = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/geocode?address=${encodeURIComponent(address)}`
       );
-      const data = await response.json();
+      const data = await res.json();
 
-      console.log("Geocode API response:", data);
-
-      if (data.status === 'OK') {
-        const result = data.results[0];
-        const components = result.address_components;
-
-        const getComponent = (types) =>
-          components.find(c => types.every(t => c.types.includes(t)))?.long_name || '';
-
-        const lat = result.geometry.location.lat;
-        const lng = result.geometry.location.lng;
-
-        setValidatedAddress({
-          street: getComponent(['route']),
-          city: getComponent(['locality']) || getComponent(['administrative_area_level_2']),
-          state: getComponent(['administrative_area_level_1']),
-          postalCode: getComponent(['postal_code']),
-          country: getComponent(['country']),
-          coordinates: `${lat}, ${lng}`
-        });
-
-        // ✅ Mostrar el mapa con AdvancedMarkerElement
-        const map = new window.google.maps.Map(document.getElementById("map"), {
-          center: { lat, lng },
-          zoom: 15,
-          mapId: "c0e64da06a98d4ae"
-        });
-
-        const { AdvancedMarkerElement } = window.google.maps.marker;
-
-        new AdvancedMarkerElement({
-          map,
-          position: { lat, lng },
-          title: "Validated Address"
-        });
-
-      } else {
-        alert("Could not validate the address.");
+      if (data.status !== "OK") {
+        alert("No se pudo validar la dirección.");
+        return;
       }
 
+      // 3) Procesa la respuesta
+      const result = data.results[0];
+      const components = result.address_components;
+      const getComponent = (types) =>
+        components.find(c => types.every(t => c.types.includes(t)))?.long_name || "";
+
+      const lat = result.geometry.location.lat;
+      const lng = result.geometry.location.lng;
+
+      // 4) Guarda los datos desglosados
+      setValidatedAddress({
+        street: getComponent(["route"]),
+        city: getComponent(["locality"]),
+        state: getComponent(["administrative_area_level_1"]),
+        postalCode: getComponent(["postal_code"]),
+        country: getComponent(["country"]),
+        coordinates: `${lat}, ${lng}`
+      });
+
+      // 5) Muestra el mapa
+      const map = new window.google.maps.Map(document.getElementById("map"), {
+        center: { lat, lng },
+        zoom: 15,
+        mapId: import.meta.env.VITE_GOOGLE_MAPS_API_KEY // si lo usas aquí
+      });
+      const { AdvancedMarkerElement } = window.google.maps.marker;
+      new AdvancedMarkerElement({ map, position: { lat, lng } });
     } catch (err) {
       console.error("Error validating address:", err);
-      alert("Error validating address.");
+      alert("Error validando la dirección.");
     }
   };
 
@@ -281,9 +302,16 @@ const OrderForm = ({ onReload }) => {
   return (
 
     <div className="container mt-4">
-      
+      <div className="d-flex justify-content-center align-items-center">
+        <img
+          src={logo}
+          alt="RSM Logo"
+          style={{ height: '100px', marginRight: '0.75rem' }}
+        />
+        <h1 className="m-0">Final project</h1>
+      </div>
       <div className="d-flex justify-content-between align-items-center mb-3">
-      <title>RSM Final project</title>
+
         {/* Botones de Acciones */}
         <div>
           {mode === 'view' && (
@@ -310,7 +338,7 @@ const OrderForm = ({ onReload }) => {
         <div>
           {mode === 'view' && (
             <>
-              <button className="btn btn-success" onClick={handleExportPdf}>Generate</button>
+              <button className="btn btn-success" onClick={handleDownloadServerPdf}>Generate</button>
               &nbsp;
               &nbsp;
               <button className="btn btn-outline-dark" onClick={onPrevious}>{'<'}</button>

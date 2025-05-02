@@ -23,9 +23,21 @@ namespace NorthwindOrderManager.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Order>(entity =>
+            {
+                // Indica que en SQL es un 'date' puro
+                entity.Property(o => o.OrderDate)
+                    .HasColumnType("date")
+                    .HasConversion(
+                        // De DateOnly a DateTime (para el driver)
+                        d => d.ToDateTime(TimeOnly.MinValue),
+                        // De DateTime a DateOnly (cuando lee)
+                        dt => DateOnly.FromDateTime(dt)
+                    );
+            
 
-            // Configuraciones de relaciones
-            modelBuilder.Entity<Order>()
+                // Configuraciones de relaciones
+                modelBuilder.Entity<Order>()
                 .HasOne(o => o.Customer)
                 .WithMany()
                 .HasForeignKey(o => o.CustomerId);
@@ -40,13 +52,35 @@ namespace NorthwindOrderManager.Infrastructure.Data
                 .WithMany()
                 .HasForeignKey(o => o.ShipVia);
 
+            modelBuilder.Entity<Order>()
+                .Property(o => o.OrderDate)
+                .HasColumnType("date");
+
             modelBuilder.Entity<OrderDetail>()
+                .ToTable("Order Details")
                 .HasKey(od => new { od.OrderId, od.ProductId });
 
             modelBuilder.Entity<OrderDetail>()
+                .ToTable("Order Details")
                 .HasOne(od => od.Order)
                 .WithMany(o => o.OrderDetails)
                 .HasForeignKey(od => od.OrderId);
+
+            modelBuilder.Entity<Order>(entity =>
+            {
+                entity.Property(o => o.ShipCity)
+                      .HasMaxLength(15)
+                      .HasColumnName("ShipCity");
+                entity.Property(o => o.ShipRegion)
+                      .HasMaxLength(15)
+                      .HasColumnName("ShipRegion");
+                entity.Property(o => o.ShipPostalCode)
+                      .HasMaxLength(10)
+                      .HasColumnName("ShipPostalCode");
+                entity.Property(o => o.ShipCountry)
+                      .HasMaxLength(15)
+                      .HasColumnName("ShipCountry");
+            });
 
             modelBuilder.Entity<OrderDetail>(entity =>
             {
@@ -56,6 +90,8 @@ namespace NorthwindOrderManager.Infrastructure.Data
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.Property(e => e.UnitPrice).HasPrecision(18, 2);
+            });
+
             });
         }
     }

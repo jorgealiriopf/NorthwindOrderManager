@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using NorthwindOrderManager.Infrastructure.Data; // ?? Tu namespace real
+using NorthwindOrderManager.Application.Interfaces;
+using NorthwindOrderManager.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,15 +19,24 @@ builder.Services.AddCors(options =>
                       });
 });
 
+builder.Services.AddSingleton<IPdfService, PdfService>();
 // Registrar DbContext
 builder.Services.AddDbContext<NorthwindDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("NorthwindConnection"))
 );
 
 // Agregar servicios de MVC
+builder.Services.AddHttpClient();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var ironKey = builder.Configuration["IronPdf:LicenseKey"];
+if (!string.IsNullOrEmpty(ironKey))
+{
+    IronPdf.License.LicenseKey = ironKey;
+}
+
 
 var app = builder.Build();
 
