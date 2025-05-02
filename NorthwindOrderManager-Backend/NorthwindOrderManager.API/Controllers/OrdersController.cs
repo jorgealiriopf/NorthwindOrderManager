@@ -82,14 +82,24 @@ namespace NorthwindOrderManager.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrder(int id)
         {
-            var order = await _context.Orders.FindAsync(id);
+            var order = await _context.Orders
+                .Include(o => o.OrderDetails)
+                .FirstOrDefaultAsync(o => o.OrderId == id);
+
             if (order == null)
                 return NotFound();
 
+            // 🔥 Elimina los detalles primero
+            _context.OrderDetails.RemoveRange(order.OrderDetails);
+
+            // Luego elimina la orden
             _context.Orders.Remove(order);
+
             await _context.SaveChangesAsync();
+
             return NoContent();
         }
+
 
         // GET: api/orders/export
         [HttpGet("export")]
