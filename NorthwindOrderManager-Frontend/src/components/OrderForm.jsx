@@ -8,6 +8,7 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { fetchOrderPdf } from '../api/ordersApi';
 import logo from '../assets/rsm_logo.png';
+import { createOrder, updateOrder } from '../api/ordersApi';
 
 
 const OrderForm = ({ onReload }) => {
@@ -257,15 +258,41 @@ const OrderForm = ({ onReload }) => {
 
   const onSave = async () => {
     try {
-      await saveOrder(); // 👈 Aquí ya no dará error
+      if (mode === 'new') {
+        const response = await createOrder({
+          customerId: formData.customerId,
+          employeeId: formData.employeeId,
+          shipAddress: formData.shipAddress,
+          shipVia: formData.shipVia,
+          orderDate: formData.orderDate,
+          orderDetails: lines
+        });
+  
+        const createdOrder = response.data;
+  
+        alert(`Order ${createdOrder.orderId} created successfully!`);
+  
+        // ✅ Mantener datos ingresados y actualizar solo el ID
+        setFormData(prev => ({
+          ...prev,
+          orderId: createdOrder.orderId
+        }));
+  
+        // ✅ Quedarse en modo "view"
+        setMode('view');
+  
+      } else if (mode === 'edit') {
+        await updateOrder({ ...formData, orderDetails: lines });
+
+      alert(`Order ${formData.orderId} updated successfully!`);
       setMode('view');
-      onReload();
+      }
     } catch (error) {
       console.error("Error saving order:", error);
+      alert("There was an error saving the order.");
     }
   };
-
-
+  
   const onUpdate = () => {
     setMode('edit');
   };
