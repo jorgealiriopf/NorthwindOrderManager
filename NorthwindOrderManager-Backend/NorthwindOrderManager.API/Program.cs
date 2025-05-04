@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using NorthwindOrderManager.Infrastructure.Data; // ?? Tu namespace real
+using NorthwindOrderManager.Infrastructure.Data;
 using NorthwindOrderManager.Application.Interfaces;
 using NorthwindOrderManager.Infrastructure.Services;
 
@@ -20,12 +20,11 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddSingleton<IPdfService, PdfService>();
-// Registrar DbContext
+
 builder.Services.AddDbContext<NorthwindDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("NorthwindConnection"))
 );
 
-// Agregar servicios de MVC
 builder.Services.AddHttpClient();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -40,7 +39,6 @@ if (!string.IsNullOrEmpty(ironKey))
 
 var app = builder.Build();
 
-// Usar CORS
 app.UseCors(MyAllowSpecificOrigins);
 
 if (app.Environment.IsDevelopment())

@@ -13,6 +13,7 @@ namespace NorthwindOrderManager.Infrastructure.Data
         }
 
         // DbSets: representan las tablas de la base de datos
+        public DateOnly OrderDate { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Customer> Customers { get; set; }
